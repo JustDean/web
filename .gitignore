@@ -1,0 +1,3 @@
+init_test.sh
+etc/nginx_test.conf
+etc/gunicorn_test.conf.py
