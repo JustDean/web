@@ -7,10 +7,19 @@ class User(DjangoUser):
     pass
 
 
+class QuestionManager(models.Manager):
+    def new(self):
+        return self.order_by('-date')
+    
+    def popular(self):
+        return self.oreder_by('-rating')
+
+
 class Question(models.Model):
+    objects = QuestionManager()
     title = models.CharField(max_length=200)
     text = models.TextField()
-    added_at = models.DateTimeField(auto_now_add=True)
+    added_at = models.DateTimeField(auto_now_add=True, name='date')
     rating = models.PositiveIntegerField(default=0)
     author = models.OneToOneField(
         User,
