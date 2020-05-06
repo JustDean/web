@@ -1,30 +1,28 @@
 from django.db import models
 
-from django.contrib.auth.models import User as DjangoUser
-
-
-class User(DjangoUser):
-    pass
+from django.contrib.auth.models import User
 
 
 class QuestionManager(models.Manager):
+    use_in_migrations = True
+
     def new(self):
         return self.order_by('-date')
-    
+
     def popular(self):
         return self.oreder_by('-rating')
 
 
 class Question(models.Model):
     objects = QuestionManager()
+
     title = models.CharField(max_length=200)
     text = models.TextField()
-    added_at = models.DateTimeField(auto_now_add=True, name='date')
-    rating = models.PositiveIntegerField(default=0)
-    author = models.OneToOneField(
+    added_at = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(default=0)
+    author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='question_author'
     )
     likes = models.ManyToManyField(
         User,
@@ -35,11 +33,11 @@ class Question(models.Model):
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
-    question = models.OneToOneField(
+    question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
     )
-    author = models.OneToOneField(
+    author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
     )
