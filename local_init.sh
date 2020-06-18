@@ -5,3 +5,4 @@ sudo /etc/init.d/nginx restart
 #task 2
 # gunicorn -c /home/dean/web/etc/gunicorn.conf.py /ask
 #task 3
+cd ask && gunicorn -c /home/dean/web/etc/gunicorn.conf.py ask.wsgi

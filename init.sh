@@ -1,3 +1,5 @@
+#part 0
+sudo pip3 install --upgrade django==2.0.7
 #task 1
 sudo ln -sf /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/test.conf
 sudo rm -rf /etc/nginx/sites-enabled/default
@@ -5,7 +7,6 @@ sudo /etc/init.d/nginx restart
 #task 2
 # gunicorn -c /home/box/web/etc/gunicorn.conf.py hello:app
 #task 3
-sudo pip3 install --upgrade django==2.0.7
 cd /home/box/web/ask && gunicorn -c /home/box/web/etc/gunicorn.conf.py ask.wsgi
 
 # sudo /etc/init.d/nginx restart
