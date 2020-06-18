@@ -1,4 +1,6 @@
 # task 1
-sudo rm /etc/nginx/sites-enabled/local_nginx.conf 
-sudo ln -sf /home/dean/web/etc/local_nginx.conf /etc/nginx/sites-enabled/
+sudo rm -rf /etc/nginx/sites-enabled/*
+sudo ln -sf /home/dean/web/etc/local_nginx.conf /etc/nginx/sites-enabled/nginx.conf
 sudo /etc/init.d/nginx restart
+#task 2
+gunicorn -c /home/dean/web/etc/gunicorn.conf.py hello:app

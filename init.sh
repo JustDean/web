@@ -1,7 +1,9 @@
+#task 1
 sudo ln -sf /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/test.conf
 sudo rm -rf /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart
-
+#task 2
+gunicorn -c /home/box/web/etc/gunicorn.conf.py hello:app
 # sudo /etc/init.d/nginx restart
 # sudo /etc/init.d/mysql start
 # mysql -uroot -e "create database stepic_web;"
