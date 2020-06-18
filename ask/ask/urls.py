@@ -21,7 +21,7 @@ import qa.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.test, name='root'),
+    path('', views.MainView.as_view(), name='root'),
     path('login/', views.test, name='login'),
     path('signup/', views.test, name='signup'),
     path('question/', views.QuestionView.as_view(), name='questions'),

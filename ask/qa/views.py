@@ -8,7 +8,13 @@ def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
 
+class MainView(generic.ListView):
+
+	model = Question
+	template_name = './qa/main.html'
+
+
 class QuestionView(generic.ListView):
 
 	model = Question
-	template_name = 'qa/Questions.html'
+	template_name = './qa/questions.html'
