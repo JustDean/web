@@ -25,3 +25,4 @@ class IndexedQuestionView(generic.DetailView):
 
 	model = Question
 	template_name = 'question_test.html'
+	context_object_name = 'question'

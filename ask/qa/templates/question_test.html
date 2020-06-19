@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Question#{{ object.pk }}</title>
+    <title>Question#{{ question.pk }}</title>
 
 </head>
 <body>
-    <h1>{{ object.title }}</h1>
+    <h1>{{ question.title }}</h1>
 
-    <h2>{{ object.text }}</h2>
+    <h2>{{ question.text }}</h2>
 
-    <h3>{{ object.added_at }}</h3>
+    <h3>{{ question.added_at }}</h3>
 </body>
 </html>
 
 <!-- Quick tip:-->
 <!-- {{ - for rendering variable-->
 <!-- {% - for rendering some django teg-->
+<!--check out this: {% extends template.html %}-->
