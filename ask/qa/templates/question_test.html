@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Question#{{ question.pk }}</title>
+{% extends "base.html" %}
 
-</head>
-<body>
+{% block title %}<title>Question#{{ question.pk }}</title> {% endblock %}
+
+{% block content %}
     <h1>{{ question.title }}</h1>
 
     <h2>{{ question.text }}</h2>
 
     <h3>{{ question.added_at }}</h3>
-</body>
-</html>
-
-<!-- Quick tip:-->
-<!-- {{ - for rendering variable-->
-<!-- {% - for rendering some django teg-->
-<!--check out this: {% extends template.html %}-->
+{% endblock %}

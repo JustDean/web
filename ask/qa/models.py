@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class QuestionManager(models.Manager):
-    use_in_migrations = True
+    use_in_migrations = False
 
     def new(self):
         return self.order_by('-date')
@@ -26,8 +26,17 @@ class Question(models.Model):
     )
     likes = models.ManyToManyField(
         User,
+        blank=True,
         related_name='question_like'
     )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'question'
+        verbose_name_plural = 'questions'
+        ordering = ('-added_at', )
 
 
 class Answer(models.Model):
