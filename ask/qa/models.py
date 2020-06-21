@@ -7,10 +7,10 @@ class QuestionManager(models.Manager):
     use_in_migrations = False
 
     def new(self):
-        return self.order_by('-date')
+        return self.order_by('-added_at')
 
     def popular(self):
-        return self.oreder_by('-rating')
+        return self.order_by('-rating')
 
 
 class Question(models.Model):
