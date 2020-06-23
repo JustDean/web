@@ -3,6 +3,7 @@
 {% block title %}<title>Welcome!</title> {% endblock %}
 
 {% block content %}
+    <h1>Welcome!</h1>
     {% for q in question %}
     <ul class="list-group">
         <li class="list-group-item"><a href="/question/{{ q.pk }}"><b>{{ q.title }}</b></a></li>

@@ -8,11 +8,9 @@ sudo /etc/init.d/nginx restart
 sudo /etc/init.d/mysql start
 mysql -uroot -e "create database web;"
 mysql -uroot -e "grant all privileges on web.* to 'box'@'localhost' with grant option;"
-echo "\nnow you should change user in ask/settings\n"
 # follow next steps after changing user in ask/settings 
-
 # rm -rf ~/web/ask/qa/migrate
 # python3 ~/web/ask/manage.py makemigrates
 # python3 ~/web/ask/manage.py migrate
 # # starting gunicorn
-# cd /home/box/web/ask && gunicorn -c /home/box/web/etc/gunicorn.conf.py ask.wsgi
+cd /home/box/web/ask && gunicorn -c /home/box/web/etc/gunicorn.conf.py ask.wsgi

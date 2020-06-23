@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# from django.contrib.auth import login, logout # doesn't work wounder why
 
 import qa.views as views
 
@@ -22,10 +23,10 @@ import qa.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.MainView.as_view(), name='main'),
-    path('login/', views.test, name='login'),
-    path('signup/', views.test, name='signup'),
+    # path('login/', login, {'template_name': 'login.html'}, name='login'),
+    # path('signup/', views.test, name='signup'),
     path('question/', include('qa.urls'), name='questions'),
     path('ask/', views.test, name='ask'),
     path('popular/', views.PopularView.as_view(), name='popular'),
-    path('new/', views.test, name='new'),
+    path('new/', views.NewQuestion.as_view(), name='new'),
 ]

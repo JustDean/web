@@ -3,10 +3,16 @@
 {% block title %}<title>Question page</title>{% endblock %}
 
 {% block content %}
-{% for q in question %}
-    <ul class="list-group">
-        <li class="list-group-item"><a href="/question/{{ q.pk }}"><b>{{ q.title }}</b></a></li>
-    </ul>
+    <form action="">
+        {{ form.search }}
+        {{ form.sort_field }}
+        <input type="submit">
+        {{ form.errors }}
+    </form>
+    {% for q in question %}
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/question/{{ q.pk }}"><b>{{ q.title }}</b></a></li>
+        </ul>
     {% endfor %}
     <div class="pagination">
         <span class="step-links">
@@ -17,7 +23,7 @@
                 <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">{{ page_obj.previous_page_number }}</a></li>
                 {% endif %}
                 <span class="current">
-                    <li class="page-item"><a href="?page={{ page_obj.number }}" class="page-link">{{ page_obj.number }}</a></li>
+                    <li class="page-item"><a href="#" class="page-link">{{ page_obj.number }}</a></li>
                 </span>
                 {% if page_obj.has_next %}
                     <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">{{ page_obj.next_page_number }}</a></li>
