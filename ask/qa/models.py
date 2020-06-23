@@ -30,7 +30,7 @@ class Question(models.Model):
     )
 
     class Meta:
-        ordering = ('-added_at', )
+        ordering = ('-added_at',)
 
     def __str__(self):
         return self.title

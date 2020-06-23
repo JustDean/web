@@ -76,11 +76,10 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'web',
-        'USER': 'dean',  # change this when deploying
+        # 'ENGINE': 'django.db.backends.mysql',
         # 'USER': 'box', # change this when deploying
-        'PASSWORD': 'kodoku777',  # comment this when deploying
     }
 }
 

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import Question, Answer
 from .forms import QuestionListForm
-from django.shortcuts import resolve_url, get_object_or_404
+from django.shortcuts import resolve_url, render, get_object_or_404
 
 
 def test(request, *args, **kwargs):
@@ -63,13 +63,17 @@ class NewQuestion(generic.CreateView):
 		return resolve_url(f'/question/{id}', pk=self.object.pk)
 
 
-def question(request):
+def question(request, *args, **kwargs):
 
-	q1 = Question.objects.all()
-	q2 = Answer.objects.all()
-	qq = q1.union(q2)
-	return get_object_or_404(qq)
-
+	index = request.path.lstrip('/question/')
+	the_question = get_object_or_404(Question, pk=index)
+	the_answer = Answer.objects.filter(question_id=index)
+	return render(request, 'the_question.html', {
+		'id': index,
+		'title': the_question.title,
+		'text': the_question.text,
+		'answers': the_answer,
+	})
 
 
 class PopularView(generic.ListView):
