@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import Question, Answer
 from .forms import QuestionListForm
-from django.shortcuts import resolve_url, render, get_object_or_404
+from django.shortcuts import resolve_url
 
 
 def test(request, *args, **kwargs):
@@ -51,29 +51,27 @@ class QuestionView(generic.ListView):
 class NewQuestion(generic.CreateView):
 
 	model = Question
-	template_name = 'new.html'
+	template_name = 'ask.html'
 	fields = ['title', 'text', 'author']
-
-	def form_valid(self, form):
-		form.instance.author = self.request.user
-		return super(NewQuestion, self).form_valid(form)
+	# user validation
+	# def form_valid(self, form):
+	# 	form.instance.author = self.request.user
+	# 	return super(NewQuestion, self).form_valid(form)
 
 	def get_success_url(self):
-		id = self.object.pk
-		return resolve_url(f'/question/{id}', pk=self.object.pk)
+		id_x = self.object.pk
+		return resolve_url('/question/{}'.format(id_x), pk=id_x)
 
 
-def question(request, *args, **kwargs):
+class TheQuestion(generic.DetailView):
 
-	index = request.path.lstrip('/question/')
-	the_question = get_object_or_404(Question, pk=index)
-	the_answer = Answer.objects.filter(question_id=index)
-	return render(request, 'the_question.html', {
-		'id': index,
-		'title': the_question.title,
-		'text': the_question.text,
-		'answers': the_answer,
-	})
+	model = Question
+	template_name = 'the_question.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(TheQuestion, self).get_context_data(**kwargs)
+		context['answers'] = Answer.objects.filter(question_id=self.object.id)
+		return context
 
 
 class PopularView(generic.ListView):
@@ -85,3 +83,18 @@ class PopularView(generic.ListView):
 
 	def get_queryset(self):
 		return Question.objects.popular()
+
+
+class NewAnswer(generic.CreateView):
+
+	model = Answer
+	template_name = 'the_question.html'
+	fields = ['text']
+	context_object_name = 'answer_form'
+
+	def get_success_url(self):
+		id = self.object.question_id
+		return resolve_url('/question/{}'.format(id), pk=self.object.pk)
+
+
+

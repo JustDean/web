@@ -1,4 +1,5 @@
 from django import forms
+from .models import Question
 
 
 class QuestionListForm(forms.Form):
@@ -16,7 +17,17 @@ class QuestionListForm(forms.Form):
     #     return search
 
 
-# class NewQuestionForm(forms.Form):
-#
-#     title = forms.CharField(max_length=255)
-#     text = forms.CharField(widget=forms.Textarea)
+class AskForm(forms.Form):
+
+    title = forms.CharField(required=True)
+    text = forms.CharField(required=True, widget=forms.Textarea)
+
+
+class AnswerForm(forms.Form):
+
+    text = forms.CharField(required=True, widget=forms.Textarea)
+    # question = forms.ChoiceField(choices=Question.objects.all())
+
+
+
+

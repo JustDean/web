@@ -76,10 +76,12 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'web',
-        # 'ENGINE': 'django.db.backends.mysql',
         # 'USER': 'box', # change this when deploying
+        'USER': 'dean',
+        'PASSWORD': 'kodoku777',
     }
 }
 
@@ -121,3 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "templates")

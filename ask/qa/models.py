@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 
 
 class QuestionManager(models.Manager):
@@ -52,4 +52,4 @@ class Answer(models.Model):
         ordering = ('-added_at', )
 
     def __str__(self):
-        return f'{self.question.title} by {self.author.username} id({str(self.author.id)})'
+        return '{} by {} id{}'.format(self.question.title, self.author.username, str(self.author.id))

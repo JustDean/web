@@ -26,7 +26,7 @@ urlpatterns = [
     # path('login/', login, {'template_name': 'login.html'}, name='login'),
     # path('signup/', views.test, name='signup'),
     path('question/', include('qa.urls'), name='questions'),
-    path('ask/', views.test, name='ask'),
+    path('ask/', views.NewQuestion.as_view(), name='ask'),
     path('popular/', views.PopularView.as_view(), name='popular'),
-    path('new/', views.NewQuestion.as_view(), name='new'),
+    # path('new/', views.NewQuestion.as_view(), name='new'),
 ]

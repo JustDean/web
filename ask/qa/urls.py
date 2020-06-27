@@ -6,5 +6,6 @@ app_name = 'qa'
 
 urlpatterns = [
     path('', views.QuestionView.as_view(), name='question'),
-    path('<id>', views.question),
+    path('<pk>', views.TheQuestion.as_view()),
+    path('<pk>/', views.TheQuestion.as_view()),
 ]
