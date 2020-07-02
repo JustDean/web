@@ -1,19 +1,25 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block title %}<title>Question page</title>{% endblock %}
 
 {% block content %}
-    <div class="filter">
+
         <form action="">
-            {{ form }}
-            <input type="submit">
+          <div class="container">
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
         </form>
+
+    <div class="enlisting">
         {% for q in question %}
-            <ul class="list-group">
-                <li class="list-group-item"><a href="/question/{{ q.pk }}"><b>{{ q.title }}</b></a></li>
-            </ul>
-        {% endfor %}
+        <div class="container">
+          <ul class="list-group">
+              <li class="list-group-item"><a href="/question/{{ q.pk }}">{{ q.title }}</a></li>
+          </ul>
+        </div>
     </div>
+        {% endfor %}
     <div class="pagination">
         <span class="step-links">
             <nav aria-label="Page navigation example">

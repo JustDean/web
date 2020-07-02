@@ -1,8 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
-from .models import Question, Answer
-from .forms import QuestionListForm
-from django.shortcuts import resolve_url
+from .models import Question, Answer, User
+from .forms import QuestionListForm, AskForm, AnswerForm
+from django.shortcuts import render
 
 
 def test(request, *args, **kwargs):
@@ -17,7 +17,7 @@ class MainView(generic.ListView):
 	context_object_name = 'question'
 
 	def get_queryset(self):
-		return Question.objects.new()
+		return Question.objects.order_by('-added_at')
 
 
 class QuestionView(generic.ListView):
@@ -39,38 +39,12 @@ class QuestionView(generic.ListView):
 		if self.form.cleaned_data.get('sort_field'):
 			queryset = queryset.order_by(self.form.cleaned_data['sort_field'])
 		else:
-			queryset = Question.objects.new()
+			queryset = Question.objects.order_by('-added_at')
 		return queryset
 
 	def get_context_data(self, **kwargs):
 		context = super(QuestionView, self).get_context_data(**kwargs)
 		context['form'] = self.form
-		return context
-
-
-class NewQuestion(generic.CreateView):
-
-	model = Question
-	template_name = 'ask.html'
-	fields = ['title', 'text', 'author']
-	# user validation
-	# def form_valid(self, form):
-	# 	form.instance.author = self.request.user
-	# 	return super(NewQuestion, self).form_valid(form)
-
-	def get_success_url(self):
-		id_x = self.object.pk
-		return resolve_url('/question/{}'.format(id_x), pk=id_x)
-
-
-class TheQuestion(generic.DetailView):
-
-	model = Question
-	template_name = 'the_question.html'
-
-	def get_context_data(self, **kwargs):
-		context = super(TheQuestion, self).get_context_data(**kwargs)
-		context['answers'] = Answer.objects.filter(question_id=self.object.id)
 		return context
 
 
@@ -82,19 +56,47 @@ class PopularView(generic.ListView):
 	context_object_name = 'question'
 
 	def get_queryset(self):
-		return Question.objects.popular()
+		return Question.objects.order_by('-rating')
 
 
-class NewAnswer(generic.CreateView):
-
-	model = Answer
-	template_name = 'the_question.html'
-	fields = ['text']
-	context_object_name = 'answer_form'
-
-	def get_success_url(self):
-		id = self.object.question_id
-		return resolve_url('/question/{}'.format(id), pk=self.object.pk)
-
+# class TheQuestion(generic.DetailView):  # rebuild this
+#
+# 	model = Question
+# 	template_name = 'the_question.html'
+#
+# 	def get_context_data(self, **kwargs):
+# 		context = super(TheQuestion, self).get_context_data(**kwargs)
+# 		context['answers'] = Answer.objects.filter(question_id=self.object.id)
+# 		return context
 
 
+def the_question(request, *args, **kwargs):
+	question_id = request.path.lstrip('/question/').rstrip('/')
+	if request.method == 'POST':
+		form = AnswerForm(request.POST, question_id)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/question/{}'.format(question_id))
+	else:
+		question = Question.objects.get(pk=question_id)
+		answers = Answer.objects.filter(question_id=question_id)
+		form = AnswerForm()
+		return render(request, 'the_question.html', {
+			'question': question,
+			'answers': answers,
+			'form': form,
+		})
+
+
+def ask_question(request, *args, **kwargs):
+	if request.method == 'POST':
+		form = AskForm(request.POST)
+		if form.is_valid():
+			question = form.save()
+			url = question.pk
+			return HttpResponseRedirect('/question/{}'.format(url))
+	else:
+		form = AskForm()
+		return render(request, 'ask.html', {
+			'form': form,
+		})
