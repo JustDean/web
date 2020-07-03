@@ -1,12 +1,11 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% block title %}<title>Question page</title>{% endblock %}
 
 {% block content %}
 
         <form action="">
           <div class="container">
-            {{ form|crispy }}
+              {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Search</button>
           </div>
         </form>
