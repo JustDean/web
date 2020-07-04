@@ -23,7 +23,7 @@ class AskForm(forms.Form):
 
 class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=True, label='Type your answer here')
-    question_id = forms.CharField(required=False, label='Check if you answer the correct question.')
+    question = 'some variable'
 
     def __init__(self, *args, **kwargs):  # this sux so much. I hate myself for it. But it works.
         if len(args) >= 2:
