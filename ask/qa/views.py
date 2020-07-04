@@ -59,17 +59,6 @@ class PopularView(generic.ListView):
 		return Question.objects.order_by('-rating')
 
 
-# class TheQuestion(generic.DetailView):  # rebuild this
-#
-# 	model = Question
-# 	template_name = 'the_question.html'
-#
-# 	def get_context_data(self, **kwargs):
-# 		context = super(TheQuestion, self).get_context_data(**kwargs)
-# 		context['answers'] = Answer.objects.filter(question_id=self.object.id)
-# 		return context
-
-
 def the_question(request, *args, **kwargs):
 	question_id = request.path.lstrip('/question/').rstrip('/')
 	if request.method == 'POST':
