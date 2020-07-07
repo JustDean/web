@@ -1,7 +1,5 @@
 # updating django
 sudo pip3 install --upgrade django==2.0.7
-# installing crispy for nice-forms
-# pip install django-crispy-forms
 # setting nginx
 sudo ln -sf /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/test.conf
 sudo rm -rf /etc/nginx/sites-enabled/default

@@ -1,3 +1,0 @@
-./local_init.sh
-./etc/local_nginx.conf
-./etc/local_gunicorn.conf.py
