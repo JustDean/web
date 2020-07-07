@@ -22,7 +22,7 @@ class AskForm(forms.Form):
 
 
 class AnswerForm(forms.Form):
-    text = forms.CharField(widget=forms.Textarea, required=True, label='Type your answer here')
+    text = forms.CharField(widget=forms.Textarea, required=True, label='Type your answer here', strip=True, )
     question = forms.ModelChoiceField(Question.objects.all())
 
     def __init__(self, *args, **kwargs):  # this sux so much. I hate myself for it. But it works.

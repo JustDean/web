@@ -7,19 +7,19 @@ nav.navbar{
   font-weight: bolder;
   margin-bottom: 20px;
 }
+header{
+  margin-bottom: 30px;
+}
 li.nav-item{
   font-size: 20px;
   padding-left: 3px;
 }
+.nav-link:hover{
+  color: #007bff !important;
+}
 a.nav-link{
   color: white !important;
 }
-li.nav-item:hover{
-  background-color: #444444;
-}
-/* li.list-group-item:hover{
-  background-color: #898989;
-} */
 div.ask-form{
   text-align:center;
 }
@@ -33,13 +33,10 @@ div.enlisting{
   margin-top: 20px;
 }
 #ask-question{
-  /* padding: 3px; */
   border: 1.5px solid white;
   border-radius: 8px;
   margin: inherit;
-  /* border-color: white; */
 }
-/* #search-question,#filter-question{
-  height: 50px;
-  width: 200px
-} */
+#ask-question:hover{
+  border: 1.5px solid #007bff;
+}

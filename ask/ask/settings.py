@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'crispy_forms',
+    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -82,9 +82,9 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'web',
-        'USER': 'box', # change this when deploying
-        # 'USER': 'dean',
-        # 'PASSWORD': 'kodoku777',
+        # 'USER': 'box', # change this when deploying
+        'USER': 'dean',
+        'PASSWORD': 'kodoku777',
     }
 }
 
