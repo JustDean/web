@@ -62,15 +62,21 @@ class PopularView(generic.ListView):
 def the_question(request, *args, **kwargs):
 	question_url = request.path.lstrip('/question/')  # no practical need for that
 	question_id = request.path.lstrip('/question/').rstrip('/')
+	question = Question.objects.get(pk=question_id)
+	answers = Answer.objects.filter(question_id=question_id)
+	form = AnswerForm()
 	if request.method == 'POST':
 		form = AnswerForm(request.POST, question_id)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('/question/{}'.format(question_url))
+		else:
+			return render(request, 'the_question.html', {
+				'question': question,
+				'answers': answers,
+				'form': form,
+			})
 	else:
-		question = Question.objects.get(pk=question_id)
-		answers = Answer.objects.filter(question_id=question_id)
-		form = AnswerForm()
 		return render(request, 'the_question.html', {
 			'question': question,
 			'answers': answers,
