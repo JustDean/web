@@ -85,6 +85,10 @@ def ask_question(request, *args, **kwargs):
 			question = form.save()
 			url = question.pk
 			return HttpResponseRedirect('/question/{}'.format(url))
+		else:
+			return render(request, 'ask.html', {
+				'form': form,
+			})
 	else:
 		form = AskForm()
 		return render(request, 'ask.html', {
