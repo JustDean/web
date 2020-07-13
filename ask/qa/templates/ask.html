@@ -6,6 +6,7 @@
 <div class="container ask-form">
     <form method="post">
         {% csrf_token %}
+        {{ forms.error_message }}
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Save</button>
     </form>

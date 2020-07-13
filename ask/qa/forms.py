@@ -9,11 +9,13 @@ class QuestionListForm(forms.Form):
 
 
 class AskForm(forms.Form):
-    title = forms.CharField(required=True)
+    title = forms.CharField(required=True, strip=True, )
     text = forms.CharField(widget=forms.Textarea, required=True)
+
 
     def clean(self):
         return self.cleaned_data
+
 
     def save(self):
         self.cleaned_data['author'] = User.objects.get(pk=1)
